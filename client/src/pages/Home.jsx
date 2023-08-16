@@ -6,19 +6,20 @@ export function Home() {
 		window.open("http://localhost:5173/auth/google", "_self");
 	};
 	return (
-		<div className="bg-slate-900 flex justify-center">
-			<FullScreenCard>
-				<div className="bg-white/80 backdrop-blur-lg rounded-lg sm:p-16 p-5 drop-shadow-lg text-center mb-60">
-					<div className="text-4xl mb-4">
-						Easy Chat
-						<div className="text-lg mt-2">Video Call and Chat</div>
-					</div>
-					<Button variant="contained" size="medium" color="error" onClick={handleGoogle}>
-						<Google className="mr-2" />
-						Login with Google
-					</Button>
+		<FullScreenCard>
+			<div className="bg-white/80 backdrop-blur-lg rounded-lg sm:py-10 sm:px-20 drop-shadow-lg text-center mb-60">
+				<div className="text-4xl mb-5">
+					Easy Chat
+					<div className="text-lg mt-3">Video Call and Chat</div>
 				</div>
-			</FullScreenCard>
-		</div>
+				<Button variant="contained" size="medium" color="error" onClick={handleGoogle}>
+					<Google className="mr-2" />
+					Login with Google
+				</Button>
+				{/* <Button variant="contained" size="medium" color="primary" onClick={handleButton}>
+					Login
+				</Button> */}
+			</div>
+		</FullScreenCard>
 	);
 }
