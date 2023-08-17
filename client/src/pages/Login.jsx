@@ -1,9 +1,9 @@
 import Google from "@mui/icons-material/Google";
-import { Button, TextField } from "@mui/material";
+import { Button } from "@mui/material";
 import { FullScreenCard } from "../components/FullScreenCard";
 export function Login() {
 	const handleGoogle = () => {
-		window.open("http://localhost:5173/auth/google", "_self");
+		window.open("http://localhost:3000/auth/google", "_self");
 	};
 	return (
 		<FullScreenCard>
