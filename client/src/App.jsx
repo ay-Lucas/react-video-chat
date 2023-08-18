@@ -7,42 +7,18 @@ import { Login } from "./pages/Login";
 
 import { useEffect, useState } from "react";
 import { BrowserRouter, Link, Navigate, Route, Routes } from "react-router-dom";
-import { Main } from "./pages/Main";
-
+import useUser from "./hooks/useUser";
+import { Dashboard } from "./pages/Dashboard";
 function App() {
-	const [user, setUser] = useState(null);
-
-	useEffect(() => {
-		const getUser = () => {
-			fetch("http://localhost:3000/auth/login/success", {
-				method: "GET",
-				credentials: "include",
-				headers: {
-					"Accept": "application/json",
-					"Content-Type": "application/json",
-					"Access-Control-Allow-Credentials": true,
-				},
-			})
-				.then((response) => {
-					if (response.status === 200) return response.json();
-					throw new Error("authentication has been failed!");
-				})
-				.then((resObject) => {
-					setUser(resObject.user);
-				})
-				.catch((err) => {
-					console.log(err);
-				});
-		};
-		getUser();
-	}, []);
+	// const user = false;
+	const user = useUser();
 	console.log(user);
 	return (
 		<BrowserRouter>
 			<div>
 				<Routes>
-					<Route path="/" element={user ? <Navigate to="/main" /> : <Home />} />
-					<Route path="/main" element={user ? <Main /> : <Navigate to="/login" />} />
+					<Route path="/" element={user ? <Navigate to="/dashboard" /> : <Home />} />
+					<Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
 					<Route path="/login" element={<Login />} />
 				</Routes>
 			</div>

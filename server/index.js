@@ -9,11 +9,12 @@ const cors = require("cors");
 const { config } = require("dotenv");
 config();
 const cookieSession = require("cookie-session");
+const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const PORT = process.env.PORT || 0;
 const authRoute = require("./routes/auth");
 const db = require("./config/database");
-const session = require("express-session");
+// const session = require("express-session");
 require("./config/passport");
 
 // const MongoStore = require("connect-mongo")(session);
@@ -36,10 +37,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(cors({ origin: process.env.GOOGLE_JAVASCRIPT_ORIGIN, methods: "GET,POST,PUT,DELETE", credentials: true }));
+
 app.use("/auth", authRoute);
 
 app.use(errorHandler);
-
 app.listen(PORT, () => {
 	console.log(`Port ${PORT} is running`);
 });

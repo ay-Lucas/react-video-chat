@@ -4,6 +4,8 @@ const { config } = require("dotenv");
 config();
 // const LocalStrategy = require("passport-local").Strategy;
 const User = require("../models/user");
+const JwtStrategy = require("passport-jwt").Strategy;
+const { ExtractJwt } = require("passport-jwt");
 
 passport.use(
 	new GoogleStrategy(
@@ -22,7 +24,6 @@ passport.use(
 			try {
 				let existingUser = await User.findOne({ "google.id": profile.id });
 				// if user exists return the user
-
 				if (existingUser) {
 					return done(null, existingUser);
 				}
@@ -32,8 +33,10 @@ passport.use(
 					method: "google",
 					google: {
 						id: profile.id,
-						name: profile.displayName,
+						first_name: profile.displayName,
+						last_name: profile.name.familyName,
 						email: profile.emails[0].value,
+						profile_picture: profile.photos[0].value,
 					},
 				});
 				await newUser.save();
@@ -45,6 +48,23 @@ passport.use(
 		}
 	)
 );
+passport.use(
+	new JwtStrategy(
+		{
+			jwtFromRequest: ExtractJwt.fromHeader("authorization"),
+			secretOrKey: "secretKey",
+		},
+		async (jwtPayload, done) => {
+			try {
+				const user = jwtPayload.user;
+				done(null, user);
+			} catch (error) {
+				done(error, false);
+			}
+		}
+	)
+);
+
 passport.serializeUser((user, done) => {
 	done(null, user);
 });
