@@ -2,39 +2,41 @@ const http = require("http");
 const { Server } = require("socket.io");
 // const passportSetup = require("./passport");
 // const server = http.createServer(app);
-const expressSession = require("express-session");
 const uuidv4 = require("uuid").v4;
-
 const express = require("express");
 const app = express();
-
 const cors = require("cors");
 const { config } = require("dotenv");
 config();
-
 // const cookieSession = require("cookie-session");
 const passport = require("passport");
-
 const PORT = process.env.PORT || 0;
 const authRoute = require("./routes/auth");
+const db = require("./config/database");
+const session = require("express-session");
+require("./config/passport");
+
+// const MongoStore = require("connect-mongo")(session);
+db.connect();
 
 function errorHandler(err, req, res, next) {
 	if (err) {
 		res.send("<h1>There has been an error, please try again</h1>");
-		res.json({ err: err });
 	}
 }
-
+// app.use(session({
+// 	secret: ""
+// }))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(expressSession({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
-app.use(cookieSession({ name: "session", keys: ["easychatsession"], maxAge: 24 * 60 * 60 * 100 }));
+app.use(session({ secret: "keyboard cat", resave: false, saveUninitialized: true }));
+// app.use(cookieSession({ name: "session", keys: ["easychatsession"], maxAge: 24 * 60 * 60 * 100 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/auth", authRoute);
 app.use(cors({ origin: process.env.JAVASCRIPT_ORIGIN, methods: ["GET", "POST"], credentials: true }));
+app.use("/auth", authRoute);
 
 app.use(errorHandler);
 
@@ -61,6 +63,6 @@ app.listen(PORT, () => {
 // 	});
 // 	socket.on("answerCall", (data) => io.to(data.to).emit("callAccepted"), data.signal);
 // });
-// app.get("/", (req, res) => {
-// 	res.send("server online");
-// });
+app.get("/", (req, res) => {
+	res.send("server online");
+});
