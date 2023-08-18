@@ -8,7 +8,7 @@ const app = express();
 const cors = require("cors");
 const { config } = require("dotenv");
 config();
-// const cookieSession = require("cookie-session");
+const cookieSession = require("cookie-session");
 const passport = require("passport");
 const PORT = process.env.PORT || 0;
 const authRoute = require("./routes/auth");
@@ -29,13 +29,13 @@ function errorHandler(err, req, res, next) {
 // }))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(session({ secret: "keyboard cat", resave: false, saveUninitialized: true }));
-// app.use(cookieSession({ name: "session", keys: ["easychatsession"], maxAge: 24 * 60 * 60 * 100 }));
+// app.use(session({ secret: "keyboard cat", resave: false, saveUninitialized: true }));
+app.use(cookieSession({ name: "session", keys: ["easychatsession"], maxAge: 24 * 60 * 60 * 100 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(cors({ origin: process.env.JAVASCRIPT_ORIGIN, methods: ["GET", "POST"], credentials: true }));
+app.use(cors({ origin: process.env.GOOGLE_JAVASCRIPT_ORIGIN, methods: "GET,POST,PUT,DELETE", credentials: true }));
 app.use("/auth", authRoute);
 
 app.use(errorHandler);

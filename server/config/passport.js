@@ -11,7 +11,7 @@ passport.use(
 			clientID: process.env.GOOGLE_CLIENT_ID,
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
 			callbackURL: process.env.GOOGLE_REDIRECT_URI,
-			passReqToCallback: true,
+			// passReqToCallback: true,
 		},
 		// function (accessToken, refreshToken, profile, cb) {
 		// 	User.findOrCreate({ googleId: profile.id }, function (err, user) {
@@ -45,10 +45,10 @@ passport.use(
 		}
 	)
 );
-// passport.serializeUser((user, done) => {
-// 	done(null, user);
-// });
+passport.serializeUser((user, done) => {
+	done(null, user);
+});
 
-// passport.deserializeUser((user, done) => {
-// 	done(null, user);
-// });
+passport.deserializeUser((user, done) => {
+	done(null, user);
+});
