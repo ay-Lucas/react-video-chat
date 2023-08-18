@@ -32,30 +32,11 @@ router.get("/logout", (req, res) => {
 
 router.get("/google", passport.authenticate("google", { scope: ["email", "profile"] }));
 
-// router.get("/profile", passport.authenticate("jwt", { session: false }), (req, res, next) => {
-// 	res.send("Welcome");
-// });
-
 router.get(
 	"/google/callback",
 	passport.authenticate("google", {
 		successRedirect: CLIENT_URL,
 		failureRedirect: "/login/failed",
-		session: false,
 	})
-	// (req, res) => {
-	// 	jwt.sign({ user: req.user }, "secretKey", { expiresIn: "1h" }, (err, token) => {
-	// 		if (err) {
-	// 			return res.json({
-	// 				token: null,
-	// 			});
-	// 		}
-	// 		res.json({
-	// 			token,
-	// 		});
-	// 	});
-	// 	console.log(req.user, token);
-	// }
-	// 	res.redirect(CLIENT_URL);
 );
 module.exports = router;
