@@ -24,6 +24,7 @@ passport.use(
 				// if user exists return the user
 
 				if (existingUser) {
+					console.log("user already exists");
 					return done(null, existingUser);
 				}
 				// if user does not exist create a new user
@@ -37,6 +38,7 @@ passport.use(
 					},
 				});
 				await newUser.save();
+
 				return done(null, newUser);
 			} catch (error) {
 				console.log(error);

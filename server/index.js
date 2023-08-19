@@ -35,7 +35,7 @@ app.use(cookieSession({ name: "session", keys: ["easychatsession"], maxAge: 24 *
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(cors({ origin: process.env.GOOGLE_JAVASCRIPT_ORIGIN, methods: "GET,POST,PUT,DELETE", credentials: true }));
+app.use(cors({ origin: process.env.GOOGLE_JAVASCRIPT_ORIGIN, methods: "GET,HEAD,PUT,PATCH,POST,DELETE", credentials: true }));
 app.use("/auth", authRoute);
 
 app.use(errorHandler);
