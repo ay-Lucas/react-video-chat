@@ -5,7 +5,6 @@ import useUser from "../hooks/useUser";
 export function Navbar({ user }) {
 	//bg-[#404eed]
 	// const user = useUser();
-	console.log(user);
 	const handleLogout = () => {
 		window.open("http://localhost:3000/auth/logout", "_self");
 	};
