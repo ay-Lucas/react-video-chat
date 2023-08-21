@@ -13,11 +13,6 @@ passport.use(
 			callbackURL: process.env.GOOGLE_REDIRECT_URI,
 			// passReqToCallback: true,
 		},
-		// function (accessToken, refreshToken, profile, cb) {
-		// 	User.findOrCreate({ googleId: profile.id }, function (err, user) {
-		// 		return cb(err, user);
-		// 	});
-		// }
 		async (request, accessToken, refreshToken, profile, done) => {
 			try {
 				let existingUser = await User.findOne({ "google.id": profile.id });
@@ -28,6 +23,7 @@ passport.use(
 					return done(null, existingUser);
 				}
 				// if user does not exist create a new user
+
 				console.log("Creating new user...");
 				const newUser = new User({
 					method: "google",
