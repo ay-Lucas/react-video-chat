@@ -19,6 +19,7 @@ passport.use(
 				// if user exists return the user
 
 				if (existingUser) {
+					console.log(profile);
 					console.log("user already exists");
 					return done(null, existingUser);
 				}
@@ -31,6 +32,7 @@ passport.use(
 						id: profile.id,
 						name: profile.displayName,
 						email: profile.emails[0].value,
+						profile_picture: profile.photos[0].value,
 					},
 				});
 				await newUser.save();
@@ -50,3 +52,4 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
 	done(null, user);
 });
+module.exports = passport;

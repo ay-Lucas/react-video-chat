@@ -1,9 +1,9 @@
 const router = require("express").Router();
-const passport = require("passport");
+// const passport = require("passport");
 const { config } = require("dotenv");
 config();
 const CLIENT_URL = process.env.CLIENT_URL;
-
+const passport = require("../config/passport");
 router.get("/login/success", (req, res) => {
 	if (req.user) {
 		res.status(200).json({

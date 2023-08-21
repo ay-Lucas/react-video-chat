@@ -10,6 +10,9 @@ const UserSchema = new mongoose.Schema({
 		email: {
 			type: String,
 		},
+		profile_picture: {
+			type: String,
+		},
 	},
 });
 const User = mongoose.model("User", UserSchema);
