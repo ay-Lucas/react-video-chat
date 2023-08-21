@@ -7,9 +7,9 @@ import { defineConfig } from "vite";
 export default defineConfig({
 	plugins: [react(), nodePolyfills()],
 
-	// vite: {
-	// 	define: {
-	// 		global: {},
-	// 	},
-	// },
+	resolve: {
+		alias: {
+			"readable-stream": "vite-compatible-readable-stream",
+		},
+	},
 });

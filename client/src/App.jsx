@@ -1,12 +1,14 @@
+import global from "global";
+import * as process from "process";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Navbar } from "./components/Navbar";
-
 import useUser from "./hooks/useUser";
 import "./index.css";
 import { Dashboard } from "./pages/Dashboard";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
+global.process = process;
 
 function App() {
 	// const user = false;
